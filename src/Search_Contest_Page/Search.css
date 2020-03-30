@@ -1,0 +1,54 @@
+.lst:link,.lst:visited{
+    color:#000000;
+    text-decoration: none;
+}
+.searchbox {
+    width: 500px;
+    margin: 100px auto;
+  }
+  input[type="search"] {
+    padding: 5px 10px 5px 10px;
+    font-size: 22px;
+    color:#000000;
+    border: none;
+    background-color: #ffffff;
+  }
+  li {
+    display: block;
+    text-decoration: none;
+    color: #000000;
+    font-size: 22px;
+    background-color: #ffffff;
+    padding: 5px;
+  }
+  ul {
+    list-style: none;
+    padding: 0px;
+  }
+  ul li {
+    text-decoration: none;
+    margin-bottom: 5px;
+  }
+  ul li:hover {
+    text-decoration: none;
+    -webkit-transform: translateX(20px);
+    -moz-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    -o-transform: translateX(20px);
+    transform: translateX(20px);
+  }
+  .suggestions li {
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  .byline {
+    text-align: center;
+    font-size: 22px;
+  }
+  .byline a {
+    text-decoration: none;
+    color: #ffffff;
+  }

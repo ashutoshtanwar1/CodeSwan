@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+/* eslint-disable react/style-prop-object */
+import React,{Component} from 'react';
 import './App.css';
+import Login from './Login_Page/Login';
+import Search from './Search_Contest_Page/Search';
+import Problems from './Contest_Problems_Page/Problems';
+import Pstatement from './Problem_Statement_Page/Pstatement';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component{
+      render(){
+        return (
+        <div> 
+        <Router>
+          <Switch>
+            <Route exact path = '/'>
+              <Login/>
+            </Route>
+
+            <Route path = '/search'>
+              <Search/>
+            </Route>
+
+            <Route path = '/contest' >
+              <Problems/>
+            </Route>
+
+            <Route path = '/problem' >
+              <Pstatement/>
+            </Route>
+          </Switch>
+        </Router>
+        </div> 
+          )
+      };    
 }
-
-export default App;

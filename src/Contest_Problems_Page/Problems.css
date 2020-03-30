@@ -1,0 +1,6 @@
+.rank-list{
+    background-color: lavender;
+    width   :  450px;
+    height  : 400px;
+    overflow :auto;
+}
