@@ -3,21 +3,21 @@
 if (isset($_SERVER['HTTP_ORIGIN'])) {
         header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
         header('Access-Control-Allow-Credentials: true');
-        header('Access-Control-Max-Age: 86400');    // cache for 1 day
+        header('Access-Control-Max-Age: 86400');
 }
 
-// Access-Control headers are received during OPTIONS requests
+
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
     if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS");         
 
     if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
-        header("Access-Control-Allow-Headers:        {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+        header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
 
     exit(0);
 }
-    
+
 function take_user_to_codechef_permissions_page($config){
 
     $params = array('response_type'=>'code', 'client_id'=> $config['client_id'], 'redirect_uri'=> $config['redirect_uri'], 'state'=> 'xyz');
@@ -40,8 +40,7 @@ function generate_access_token_first_time($config, $oauth_details){
 }
 
 function generate_access_token_from_refresh_token($config, $oauth_details){
-    $oauth_config = array('grant_type' => 'refresh_token', 'refresh_token'=> $oauth_details['refresh_token'], 'client_id' => $config['client_id'],
-        'client_secret' => $config['client_secret']);
+    $oauth_config = array('grant_type' => 'refresh_token', 'refresh_token'=> $oauth_details['refresh_token'], 'client_id' => $config['client_id'], 'client_secret' => $config['client_secret']);
     $response = json_decode(make_curl_request($config['access_token_endpoint'], $oauth_config), true);
     $result = $response['result']['data'];
 
@@ -51,11 +50,6 @@ function generate_access_token_from_refresh_token($config, $oauth_details){
 
     return $oauth_details;
 
-}
-
-function make_api_request($oauth_config, $path){
-    $headers[] = 'Authorization: Bearer ' . $oauth_config['access_token'];
-    return make_curl_request($path, false, $headers);
 }
 
 
@@ -75,15 +69,6 @@ function make_curl_request($url, $post = FALSE, $headers = array())
     return $response;
 }
 
-
-function make_contest_problem_api_request($config,$oauth_details){
-    $problem_code = "SALARY";
-    $contest_code = "PRACTICE";
-    $path = $config['api_endpoint']."contests/".$contest_code."/problems/".$problem_code;
-    $response = make_api_request($oauth_details, $path);
-    return $response;
-}
-
 function main(){
 
     $config = array('client_id'=> '31dfee034e0819d60e888614cf2676b0',
@@ -91,8 +76,8 @@ function main(){
         'api_endpoint'=> 'https://api.codechef.com/',
         'authorization_code_endpoint'=> 'https://api.codechef.com/oauth/authorize',
         'access_token_endpoint'=> 'https://api.codechef.com/oauth/token',
-        'redirect_uri'=> 'http://localhost:3000/search',
-        'website_base_url' => 'http://localhost:3000/');
+        'redirect_uri'=> 'https://codeswan.tech/search',
+        'website_base_url' => 'https://codeswan.tech/');
 
     $oauth_details = array('authorization_code' => '',
         'access_token' => '',
@@ -101,10 +86,15 @@ function main(){
     if(isset($_GET['code'])){
         $oauth_details['authorization_code'] = $_GET['code'];
         $oauth_details = generate_access_token_first_time($config, $oauth_details);
-        // $response = make_contest_problem_api_request($config, $oauth_details);
-        //$oauth_details = generate_access_token_from_refresh_token($config, $oauth_details);         //use this if you want to generate access_token from refresh_token
         echo json_encode($oauth_details);
-    } else{
+    }
+    else
+    if(isset($_GET['ref_token'])){
+        $oauth_details['refresh_token'] = $_GET['ref_token'];
+        $oauth_details = generate_access_token_from_refresh_token($config, $oauth_details);
+        echo json_encode($oauth_details);
+    }
+    else{
         take_user_to_codechef_permissions_page($config);
     }
 }
