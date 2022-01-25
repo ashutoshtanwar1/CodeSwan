@@ -12,8 +12,8 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: GitHub Script
-        uses: actions/github-script@v4.0.2
-        with:
+      uses: actions/github-script@v4.0.2
+      with:
           script: |
             const script = require('./.github/actionHelpers/PR-review-slack.js')
             await script({github, context, core})
