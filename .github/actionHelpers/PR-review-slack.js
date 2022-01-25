@@ -14,7 +14,7 @@ module.exports = async ({ github, context }) => {
       isUrgent && "URGENTLY"
     }\n\n${title} - (+${additions} , -${deletions} , ${changed_files} files changed.)\n\n<${prUrl}|VIEW PR>`;
 
-    console.log(contest.issue, contest.repo);
+    console.log(context.issue, context.repo);
 
     console.log(
       msgToBeSend,
