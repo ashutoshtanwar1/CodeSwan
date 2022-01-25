@@ -15,15 +15,7 @@ module.exports = async ({ github, context }) => {
     }\n\n${title} - (+${additions} , -${deletions} , ${changed_files} files changed.)\n\n<${prUrl}|VIEW PR>`;
 
     console.log(msgToBeSend);
-    github.pulls
-      .checkIfMerged({
-        issue_number: context.issue.number,
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-      })
-      .then((d) => {
-        console.log("NOT MERGED", d);
-      });
+
     github.issues.addAssignees({
       owner: context.repo.owner,
       repo: context.repo.repo,
