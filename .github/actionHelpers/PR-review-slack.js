@@ -14,31 +14,29 @@ module.exports = async ({ github, context }) => {
       isUrgent && "URGENTLY"
     }\n\n${title} - (+${additions} , -${deletions} , ${changed_files} files changed.)\n\n<${prUrl}|VIEW PR>`;
 
-    console.log(context.issue, context.repo);
-
-    console.log(
-      msgToBeSend,
-      "\n\nMERGED:",
-      github.pulls.checkIfMerged({
+    console.log(msgToBeSend);
+    github.pulls
+      .checkIfMerged({
         issue_number: context.issue.number,
         owner: context.repo.owner,
         repo: context.repo.repo,
       })
-    );
-
+      .then((d) => {
+        console.log("NOT MERGED", d);
+      });
     github.issues.addAssignees({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
-      assignees: ["assignees"],
+      assignees: [userName],
     });
 
-    github.pulls.requestReviewers({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      pull_number: context.issue.number,
-      reviewers: ["reviewers"],
-    });
+    // github.pulls.requestReviewers({
+    //   owner: context.repo.owner,
+    //   repo: context.repo.repo,
+    //   pull_number: context.issue.number,
+    //   reviewers: ["reviewers"],
+    // });
   } catch (err) {
     console.log("err : ", err);
   }
