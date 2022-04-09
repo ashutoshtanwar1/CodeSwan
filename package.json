@@ -12,7 +12,7 @@
     "html-react-parser": "^0.10.2",
     "markdown-to-jsx": "^6.11.0",
     "marked": "^4.0.10",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "react": "^16.13.0",
     "react-ace": "^8.1.0",
     "react-dom": "^16.13.0",
