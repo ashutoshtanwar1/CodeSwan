@@ -1,5 +1,6 @@
 This project is an online judge that uses Codechef API and created for making an interative and simple UI.
 <br/>
+
 # Front Page of Website
 
 <br/>
@@ -16,7 +17,7 @@ This project is an online judge that uses Codechef API and created for making an
 
 <br/>
 
-# Search the Contest 
+# Search the Contest
 
 <br/>
 
@@ -41,7 +42,6 @@ This project is an online judge that uses Codechef API and created for making an
 <br/>
 
 # IDE for writing the source code and checking it's execution and output by pressing RUN and SUBMIT button respectively.
-
 
 <br/>
 
